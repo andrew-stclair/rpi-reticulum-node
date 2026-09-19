@@ -4,7 +4,7 @@
 # X-Env-Layer-Desc: Raspberry Pi Zero / Zero W compatible device layer
 # X-Env-Layer-Version: 1.0.0
 # X-Env-Layer-Requires: rpi-device-base,rpi-linux-rpi
-# X-Env-Layer-Provides: rpi-device,hw:device:rpi:zero
+# X-Env-Layer-Provides: rpi-device,hw:device:rpi
 #
 # X-Env-VarPrefix: device
 #
