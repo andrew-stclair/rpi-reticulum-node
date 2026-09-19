@@ -10,4 +10,4 @@ env:
   INITRD: "No"
 mmdebstrap:
   packages:
-    - raspberrypi-kernel
+    - linux-image-rpi-v6

@@ -1,0 +1,40 @@
+# METABEGIN
+# X-Env-Layer-Name: rpi-device-base-zero
+# X-Env-Layer-Category: device
+# X-Env-Layer-Desc: Raspberry Pi Zero device base layer and defaults
+# X-Env-Layer-Version: 1.0.0
+# X-Env-Layer-Requires: device-base,rpi-boot-firmware,rpi-idp
+# X-Env-Layer-Provides: device
+# X-Env-Layer-RequiresProvider: rpi-device,systemd,network-activator
+#
+# X-Env-VarPrefix: device
+#
+# X-Env-Var-vendor: rpi
+# X-Env-Var-vendor-Desc: Device vendor
+# X-Env-Var-vendor-Required: n
+# X-Env-Var-vendor-Valid: string
+# X-Env-Var-vendor-Set: lazy
+#
+# X-Env-Var-class: zero
+# X-Env-Var-class-Desc: Raspberry Pi device classification
+# X-Env-Var-class-Required: n
+# X-Env-Var-class-Valid: keywords:zero
+# X-Env-Var-class-Set: lazy
+#
+# X-Env-Var-variant: none
+# X-Env-Var-variant-Desc: Raspberry Pi device variant, eg 8G, lite, ..
+# X-Env-Var-variant-Required: n
+# X-Env-Var-variant-Valid: string
+# X-Env-Var-variant-Set: lazy
+#
+# METAEND
+---
+mmdebstrap:
+  packages:
+    - udev
+    - firmware-brcm80211
+    - bluez-firmware
+  customize-hooks:
+    - mkdir -p $1/etc/systemd/network
+    - $LAYER_HOOKS/systemd/netgen eth0 > $1/etc/systemd/network/01-eth0.network
+    - $LAYER_HOOKS/systemd/netgen wlan0 > $1/etc/systemd/network/02-wlan0.network
