@@ -15,10 +15,10 @@
 # X-Env-Var-vendor-Valid: string
 # X-Env-Var-vendor-Set: lazy
 #
-# X-Env-Var-class: zero
+# X-Env-Var-class: zero2w
 # X-Env-Var-class-Desc: Raspberry Pi device classification
 # X-Env-Var-class-Required: n
-# X-Env-Var-class-Valid: keywords:zero
+# X-Env-Var-class-Valid: keywords:zero2w
 # X-Env-Var-class-Set: lazy
 #
 # X-Env-Var-variant: none
