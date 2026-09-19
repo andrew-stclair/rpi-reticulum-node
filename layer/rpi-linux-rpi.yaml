@@ -1,0 +1,12 @@
+# METABEGIN
+# X-Env-Layer-Name: rpi-linux-rpi
+# X-Env-Layer-Category: kernel
+# X-Env-Layer-Desc: Raspberry Pi kernel package for Pi Zero class devices
+# X-Env-Layer-Version: 1.0.0
+# METAEND
+---
+env:
+  INITRD: "No"
+mmdebstrap:
+  packages:
+    - raspberrypi-kernel

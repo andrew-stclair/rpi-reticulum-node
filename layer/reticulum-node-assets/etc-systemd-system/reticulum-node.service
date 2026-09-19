@@ -1,0 +1,21 @@
+[Unit]
+Description=Reticulum node daemon
+After=network.target reticulum-boot-config.service
+Wants=network.target reticulum-boot-config.service
+
+[Service]
+Type=simple
+User=reticulum
+Group=reticulum
+WorkingDirectory=/var/lib/reticulum
+ExecStart=/opt/reticulum-node/venv/bin/rnsd --config /var/lib/reticulum
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/var/lib/reticulum
+
+[Install]
+WantedBy=multi-user.target

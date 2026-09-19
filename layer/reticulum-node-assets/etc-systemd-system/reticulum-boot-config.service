@@ -1,0 +1,13 @@
+[Unit]
+Description=Apply boot partition Reticulum node configuration
+After=local-fs.target systemd-remount-fs.service
+Before=network-pre.target reticulum-node.service
+Wants=network-pre.target
+ConditionPathExists=/boot/firmware/reticulum-node
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/reticulum-node/apply-boot-config.sh
+
+[Install]
+WantedBy=multi-user.target

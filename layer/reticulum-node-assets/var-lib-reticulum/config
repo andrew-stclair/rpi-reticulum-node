@@ -1,0 +1,7 @@
+[reticulum]
+enable_transport = yes
+share_instance = yes
+instance_name = default
+
+[logging]
+loglevel = 4

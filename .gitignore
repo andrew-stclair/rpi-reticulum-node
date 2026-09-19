@@ -1,0 +1,8 @@
+rpi-image-gen/
+work/
+artifacts/
+*.img
+*.img.zst
+*.sha256
+*.manifest
+*.json
