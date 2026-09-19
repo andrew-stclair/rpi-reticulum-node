@@ -4,7 +4,7 @@
 
 Use one of the generated `*.img.zst` artifacts from GitHub Actions, or build an
 image locally as described in
-`/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/docs/building-images.md`.
+[`docs/building-images.md`](building-images.md).
 
 ## 2. Flash the image
 

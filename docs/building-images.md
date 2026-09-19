@@ -18,13 +18,13 @@ sudo ./install_deps.sh
 ### Raspberry Pi Zero / Zero W
 
 ```bash
-/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/scripts/build-image.sh zero /absolute/path/to/rpi-image-gen
+./scripts/build-image.sh zero /absolute/path/to/rpi-image-gen
 ```
 
 ### Raspberry Pi Zero 2 W
 
 ```bash
-/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/scripts/build-image.sh zero2w /absolute/path/to/rpi-image-gen
+./scripts/build-image.sh zero2w /absolute/path/to/rpi-image-gen
 ```
 
 The resulting images are written into the `work/` directory inside the

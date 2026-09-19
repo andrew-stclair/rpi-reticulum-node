@@ -50,6 +50,6 @@ mmdebstrap:
       set -eu
       install -d -m 0755 "$1/var/lib/reticulum"
       install -m 0640 "$IGconf_reticulum_assetdir/var-lib-reticulum/config" "$1/var/lib/reticulum/config"
-      chroot "$1" sh -lc 'python3 -m venv /opt/reticulum-node/venv && /opt/reticulum-node/venv/bin/pip install --no-cache-dir --upgrade pip && /opt/reticulum-node/venv/bin/pip install --no-cache-dir "$IGconf_reticulum_pip_spec"'
+      chroot "$1" env IGconf_reticulum_pip_spec="$IGconf_reticulum_pip_spec" sh -lc 'python3 -m venv /opt/reticulum-node/venv && /opt/reticulum-node/venv/bin/pip install --no-cache-dir --upgrade pip && /opt/reticulum-node/venv/bin/pip install --no-cache-dir "$IGconf_reticulum_pip_spec"'
       chroot "$1" chown -R reticulum:reticulum /opt/reticulum-node /var/lib/reticulum
     - $BDEBSTRAP_HOOKS/enable-units "$1" ssh reticulum-boot-config.service reticulum-node.service systemd-networkd systemd-resolved

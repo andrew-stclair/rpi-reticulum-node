@@ -33,16 +33,16 @@ This repository is designed to be used as a custom source root for
    /absolute/path/to/this/repo/scripts/build-image.sh zero2w /absolute/path/to/rpi-image-gen
    ```
 
-See `/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/docs/building-images.md`
+See [docs/building-images.md](docs/building-images.md)
 for full build instructions and
-`/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/docs/flashing-and-configuration.md`
+[docs/flashing-and-configuration.md](docs/flashing-and-configuration.md)
 for flashing, WiFi, SSH, and Reticulum setup.
 
 ## Repository layout
 
-- `/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/config` - image build configs
-- `/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/device` - custom Raspberry Pi Zero device layer
-- `/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/layer` - custom layers and build assets
-- `/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/scripts` - local build helper
-- `/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/docs` - user and developer documentation
-- `/home/runner/work/rpi-reticulum-node/rpi-reticulum-node/.github/workflows` - scheduled image builds
+- `config/` - image build configs
+- `device/` - custom Raspberry Pi Zero device layer
+- `layer/` - custom layers and build assets
+- `scripts/` - local build helper
+- `docs/` - user and developer documentation
+- `.github/workflows/` - scheduled image builds
