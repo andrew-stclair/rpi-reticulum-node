@@ -43,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "artifacts/${{ matrix.name }}"
-          find rpi-image-gen/work -type f \( -name '*.img' -o -name '*.img.zst' \) -print -exec cp --parents {} "artifacts/${{ matrix.name }}/" \;
+          find rpi-image-gen/work -path 'rpi-image-gen/work/chroot-*' -prune -o -type f \( -name '*.img' -o -name '*.img.zst' \) -print -exec cp --parents {} "artifacts/${{ matrix.name }}/" \;
           find "artifacts/${{ matrix.name }}" -type f \( -name '*.img' -o -name '*.img.zst' \) -exec sha256sum {} \; > "artifacts/${{ matrix.name }}/${{ matrix.name }}.sha256"
 
       - name: Upload artifacts
