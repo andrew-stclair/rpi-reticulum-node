@@ -1,0 +1,3 @@
+# Copy this file to authorized_keys and add one or more SSH public keys.
+# Example:
+# ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExample replace-me@example

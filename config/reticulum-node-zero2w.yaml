@@ -1,0 +1,15 @@
+device:
+  layer: rpizero2w
+  user1: pi
+  user1sudo: nopasswd
+
+image:
+  layer: image-rpios
+  name: reticulum-node-zero2w-bookworm
+  compression: zstd
+  boot_part_size: 256M
+  root_part_size: 2G
+
+layer:
+  base: bookworm-minbase
+  custom: reticulum-node-common

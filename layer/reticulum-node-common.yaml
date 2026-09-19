@@ -1,0 +1,55 @@
+# METABEGIN
+# X-Env-Layer-Name: reticulum-node-common
+# X-Env-Layer-Category: application
+# X-Env-Layer-Desc: Reticulum node runtime, services, and post-flash configuration assets
+# X-Env-Layer-Version: 1.0.0
+# X-Env-Layer-Requires: rpi-essential-base,systemd-net-min,openssh-server,fake-hwclock
+#
+# X-Env-VarPrefix: reticulum
+#
+# X-Env-Var-assetdir: ${DIRECTORY}/reticulum-node-assets
+# X-Env-Var-assetdir-Desc: Path to Reticulum node layer assets
+# X-Env-Var-assetdir-Required: n
+# X-Env-Var-assetdir-Valid: dir
+# X-Env-Var-assetdir-Set: y
+#
+# X-Env-Var-pip_spec: rns
+# X-Env-Var-pip_spec-Desc: Pip package specifier used to install Reticulum
+# X-Env-Var-pip_spec-Required: n
+# X-Env-Var-pip_spec-Valid: string
+# X-Env-Var-pip_spec-Set: y
+# METAEND
+---
+mmdebstrap:
+  packages:
+    - python3
+    - python3-venv
+    - python3-pip
+    - ca-certificates
+    - wpasupplicant
+  customize-hooks:
+    - install -d -m 0755 "$1/usr/local/lib/reticulum-node"
+    - install -D -m 0755 "$IGconf_reticulum_assetdir/usr-local-lib-reticulum-node/apply-boot-config.sh" "$1/usr/local/lib/reticulum-node/apply-boot-config.sh"
+    - install -D -m 0644 "$IGconf_reticulum_assetdir/etc-systemd-system/reticulum-boot-config.service" "$1/etc/systemd/system/reticulum-boot-config.service"
+    - install -D -m 0644 "$IGconf_reticulum_assetdir/etc-systemd-system/reticulum-node.service" "$1/etc/systemd/system/reticulum-node.service"
+    - install -D -m 0644 "$IGconf_reticulum_assetdir/etc-ssh-sshd_config.d/20-reticulum-node.conf" "$1/etc/ssh/sshd_config.d/20-reticulum-node.conf"
+    - install -d -m 0755 "$1/boot/firmware/reticulum-node"
+    - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/README.txt" "$1/boot/firmware/reticulum-node/README.txt"
+    - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/reticulum.conf.example" "$1/boot/firmware/reticulum-node/reticulum.conf.example"
+    - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/wpa_supplicant-wlan0.conf.example" "$1/boot/firmware/reticulum-node/wpa_supplicant-wlan0.conf.example"
+    - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/authorized_keys.example" "$1/boot/firmware/reticulum-node/authorized_keys.example"
+    - |-
+      set -eu
+      if ! chroot "$1" getent group reticulum >/dev/null 2>&1; then
+        chroot "$1" addgroup --system reticulum
+      fi
+      if ! chroot "$1" id -u reticulum >/dev/null 2>&1; then
+        chroot "$1" adduser --system --ingroup reticulum --home /var/lib/reticulum --shell /usr/sbin/nologin reticulum
+      fi
+    - |-
+      set -eu
+      install -d -m 0755 "$1/var/lib/reticulum"
+      install -m 0640 "$IGconf_reticulum_assetdir/var-lib-reticulum/config" "$1/var/lib/reticulum/config"
+      chroot "$1" env IGconf_reticulum_pip_spec="$IGconf_reticulum_pip_spec" sh -lc 'python3 -m venv /opt/reticulum-node/venv && /opt/reticulum-node/venv/bin/pip install --no-cache-dir --upgrade pip && /opt/reticulum-node/venv/bin/pip install --no-cache-dir "$IGconf_reticulum_pip_spec"'
+      chroot "$1" chown -R reticulum:reticulum /opt/reticulum-node /var/lib/reticulum
+    - $BDEBSTRAP_HOOKS/enable-units "$1" ssh reticulum-boot-config.service reticulum-node.service systemd-networkd systemd-resolved

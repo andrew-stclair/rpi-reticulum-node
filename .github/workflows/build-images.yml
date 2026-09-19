@@ -1,0 +1,53 @@
+name: Build Raspberry Pi images
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 1 * *"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: zero
+            config: reticulum-node-zero.yaml
+          - name: zero2w
+            config: reticulum-node-zero2w.yaml
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Checkout rpi-image-gen
+        uses: actions/checkout@v4
+        with:
+          repository: raspberrypi/rpi-image-gen
+          path: rpi-image-gen
+
+      - name: Install rpi-image-gen dependencies
+        working-directory: rpi-image-gen
+        run: sudo ./install_deps.sh
+
+      - name: Build image
+        working-directory: rpi-image-gen
+        run: ./rpi-image-gen build -S "$GITHUB_WORKSPACE" -c "$GITHUB_WORKSPACE/config/${{ matrix.config }}"
+
+      - name: Collect artifacts
+        run: |
+          set -euo pipefail
+          mkdir -p "artifacts/${{ matrix.name }}"
+          find rpi-image-gen/work -path 'rpi-image-gen/work/chroot-*' -prune -o -type f \( -name '*.img' -o -name '*.img.zst' \) -print -exec cp --parents {} "artifacts/${{ matrix.name }}/" \;
+          find "artifacts/${{ matrix.name }}" -type f \( -name '*.img' -o -name '*.img.zst' \) -exec sha256sum {} \; > "artifacts/${{ matrix.name }}/${{ matrix.name }}.sha256"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: reticulum-node-${{ matrix.name }}
+          path: artifacts/${{ matrix.name }}

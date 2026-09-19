@@ -1,0 +1,11 @@
+[reticulum]
+enable_transport = yes
+share_instance = yes
+instance_name = default
+
+[logging]
+loglevel = 4
+
+# Add your Reticulum interfaces below.
+# You can also inspect the full upstream example with:
+#   /opt/reticulum-node/venv/bin/rnsd --exampleconfig
