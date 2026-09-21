@@ -12,7 +12,7 @@ case "$timeout" in
 esac
 
 while :; do
-    if ip -6 -o addr show up scope global | awk '($0 !~ / tentative / && $0 !~ / dadfailed / && $0 !~ / deprecated /) { found=1; exit } END { exit found ? 0 : 1 }'; then
+    if ip -6 -o addr show up scope global | awk '{ bad=0; for (i=1; i<=NF; i++) if ($i == "tentative" || $i == "dadfailed" || $i == "deprecated") bad=1; if (!bad) { found=1; exit } } END { exit found ? 0 : 1 }'; then
         exit 0
     fi
 
