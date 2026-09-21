@@ -1,7 +1,7 @@
 [Unit]
 Description=Reticulum node daemon
-After=network-online.target reticulum-boot-config.service
-Wants=network-online.target reticulum-boot-config.service
+After=network.target reticulum-boot-config.service
+Wants=network.target reticulum-boot-config.service
 
 [Service]
 Type=simple
