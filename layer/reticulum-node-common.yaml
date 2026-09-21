@@ -30,6 +30,7 @@ mmdebstrap:
   customize-hooks:
     - install -d -m 0755 "$1/usr/local/lib/reticulum-node"
     - install -D -m 0755 "$IGconf_reticulum_assetdir/usr-local-lib-reticulum-node/apply-boot-config.sh" "$1/usr/local/lib/reticulum-node/apply-boot-config.sh"
+    - install -D -m 0755 "$IGconf_reticulum_assetdir/usr-local-lib-reticulum-node/wait-for-ipv6.sh" "$1/usr/local/lib/reticulum-node/wait-for-ipv6.sh"
     - install -D -m 0644 "$IGconf_reticulum_assetdir/etc-systemd-system/reticulum-boot-config.service" "$1/etc/systemd/system/reticulum-boot-config.service"
     - install -D -m 0644 "$IGconf_reticulum_assetdir/etc-systemd-system/reticulum-node.service" "$1/etc/systemd/system/reticulum-node.service"
     - install -D -m 0644 "$IGconf_reticulum_assetdir/etc-ssh-sshd_config.d/20-reticulum-node.conf" "$1/etc/ssh/sshd_config.d/20-reticulum-node.conf"

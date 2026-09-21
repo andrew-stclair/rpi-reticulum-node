@@ -1,13 +1,14 @@
 [Unit]
 Description=Reticulum node daemon
-After=network.target reticulum-boot-config.service
-Wants=network.target reticulum-boot-config.service
+After=network-online.target reticulum-boot-config.service
+Wants=network-online.target reticulum-boot-config.service
 
 [Service]
 Type=simple
 User=reticulum
 Group=reticulum
 WorkingDirectory=/var/lib/reticulum
+ExecStartPre=/usr/local/lib/reticulum-node/wait-for-ipv6.sh 60
 ExecStart=/opt/reticulum-node/venv/bin/rnsd --config /var/lib/reticulum
 Restart=on-failure
 RestartSec=5
