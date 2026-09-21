@@ -26,6 +26,7 @@ mmdebstrap:
     - python3-venv
     - python3-pip
     - ca-certificates
+    - iproute2
     - wpasupplicant
   customize-hooks:
     - install -d -m 0755 "$1/usr/local/lib/reticulum-node"
