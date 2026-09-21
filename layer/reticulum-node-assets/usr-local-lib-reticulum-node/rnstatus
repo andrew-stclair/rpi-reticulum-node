@@ -1,0 +1,2 @@
+#!/bin/sh
+sudo -u reticulum /opt/reticulum-node/venv/bin/rnstatus --config /var/lib/reticulum
