@@ -57,6 +57,9 @@ set:
 RETICULUM_WAIT_FOR_IPV6=1
 ```
 
+Accepted enable values are `1`, `y`, `yes`, `t`, `true`, and `on`
+(case-insensitive, surrounding whitespace ignored).
+
 You can also override the timeout in seconds with
 `RETICULUM_WAIT_FOR_IPV6_TIMEOUT`.
 
