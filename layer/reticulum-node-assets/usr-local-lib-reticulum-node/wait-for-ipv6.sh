@@ -4,6 +4,13 @@ set -eu
 
 timeout="${1:-60}"
 
+case "$timeout" in
+    '' | *[!0-9]*)
+        echo "IPv6 wait timeout must be a non-negative integer" >&2
+        exit 1
+        ;;
+esac
+
 while [ "$timeout" -gt 0 ]; do
     if ip -6 -o addr show up scope global | awk '($0 !~ / tentative / && $0 !~ / dadfailed / && $0 !~ / deprecated /) { found=1; exit } END { exit found ? 0 : 1 }'; then
         exit 0
