@@ -8,7 +8,8 @@ Type=simple
 User=reticulum
 Group=reticulum
 WorkingDirectory=/var/lib/reticulum
-ExecStartPre=/usr/local/lib/reticulum-node/wait-for-ipv6.sh 60
+EnvironmentFile=-/boot/firmware/reticulum-node/reticulum-node.env
+ExecStartPre=/bin/sh -eu -c '[ "${RETICULUM_WAIT_FOR_IPV6:-0}" = "1" ] || exit 0; exec /usr/local/lib/reticulum-node/wait-for-ipv6.sh "${RETICULUM_WAIT_FOR_IPV6_TIMEOUT:-60}"'
 ExecStart=/opt/reticulum-node/venv/bin/rnsd --config /var/lib/reticulum
 Restart=on-failure
 RestartSec=5

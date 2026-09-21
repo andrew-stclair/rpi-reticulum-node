@@ -38,6 +38,7 @@ mmdebstrap:
     - install -d -m 0755 "$1/boot/firmware/reticulum-node"
     - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/README.txt" "$1/boot/firmware/reticulum-node/README.txt"
     - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/reticulum.conf.example" "$1/boot/firmware/reticulum-node/reticulum.conf.example"
+    - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/reticulum-node.env.example" "$1/boot/firmware/reticulum-node/reticulum-node.env.example"
     - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/wpa_supplicant-wlan0.conf.example" "$1/boot/firmware/reticulum-node/wpa_supplicant-wlan0.conf.example"
     - install -m 0644 "$IGconf_reticulum_assetdir/boot-firmware-reticulum-node/authorized_keys.example" "$1/boot/firmware/reticulum-node/authorized_keys.example"
     - |-

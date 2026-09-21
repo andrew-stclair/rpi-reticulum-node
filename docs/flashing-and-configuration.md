@@ -49,6 +49,17 @@ disabled.
 Copy `reticulum.conf.example` to `reticulum.conf` and add your interface
 configuration.
 
+If you want `reticulum-node.service` to wait for a usable global IPv6 address
+before startup, copy `reticulum-node.env.example` to `reticulum-node.env` and
+set:
+
+```sh
+RETICULUM_WAIT_FOR_IPV6=1
+```
+
+You can also override the timeout in seconds with
+`RETICULUM_WAIT_FOR_IPV6_TIMEOUT`.
+
 The active Reticulum runtime directory on the device is:
 
 `/var/lib/reticulum`
