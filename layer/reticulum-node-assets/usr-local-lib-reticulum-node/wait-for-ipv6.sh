@@ -11,11 +11,12 @@ case "$timeout" in
         ;;
 esac
 
-while [ "$timeout" -gt 0 ]; do
+while :; do
     if ip -6 -o addr show up scope global | awk '($0 !~ / tentative / && $0 !~ / dadfailed / && $0 !~ / deprecated /) { found=1; exit } END { exit found ? 0 : 1 }'; then
         exit 0
     fi
 
+    [ "$timeout" -gt 0 ] || break
     sleep 1
     timeout=$((timeout - 1))
 done
