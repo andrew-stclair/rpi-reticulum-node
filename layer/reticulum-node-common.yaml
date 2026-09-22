@@ -47,6 +47,7 @@ mmdebstrap:
       if ! chroot "$1" id -u reticulum >/dev/null 2>&1; then
         chroot "$1" adduser --system --ingroup reticulum --home /var/lib/reticulum --shell /usr/sbin/nologin reticulum
       fi
+      chroot "$1" adduser reticulum dialout
     - |-
       set -eu
       install -d -m 0755 "$1/var/lib/reticulum"
